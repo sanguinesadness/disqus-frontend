@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import * as SC from "./app.style";
+import LoginPage from "components/screens/Login";
+import RegisterPage from "components/screens/Register";
+import { WRAPPER_ID } from "constants/config";
+import { APP_ROUTES } from "constants/routes";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/register");
+    }
+  }, [location.pathname]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SC.Wrapper id={WRAPPER_ID}>
+      <Routes>
+        <Route path={APP_ROUTES.HOME} element={<RegisterPage />} />
+        <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
+      </Routes>
+    </SC.Wrapper>
   );
 }
 
