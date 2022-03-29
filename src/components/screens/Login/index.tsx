@@ -5,9 +5,14 @@ import Input from "components/UI/Input";
 import Button from "components/UI/Button";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "constants/routes";
+import requestApi from "api";
+import { modalsStore } from "stores/modalsStore";
+import { loading } from "services/loading";
+import { fakePromise } from "services/fake.promise";
+import { toastsStore } from "stores/toastsStore";
 
 const LoginPage = () => {
-  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,8 +20,8 @@ const LoginPage = () => {
     const stateName = event.target.name;
 
     switch (stateName) {
-      case "name":
-        setName(value);
+      case "email":
+        setEmail(value);
         break;
       case "password":
         setPassword(value);
@@ -25,8 +30,15 @@ const LoginPage = () => {
   };
 
   const handleResetFields = () => {
-    setName("");
+    setEmail("");
     setPassword("");
+  };
+
+  const handleLoginSubmit = async () => {
+    loading(async () => {
+      await fakePromise(1000);
+      const user = await requestApi.login({ email, password });
+    });
   };
 
   return (
@@ -38,11 +50,11 @@ const LoginPage = () => {
       <SC.Form>
         <SC.Inputs>
           <Input
-            label='Name'
-            placeholder='Your company'
-            name='name'
-            type='text'
-            value={name}
+            label='Email'
+            placeholder='your.company@example.com'
+            name='email'
+            type='email'
+            value={email}
             onValueChange={handleValueChange}
           />
           <Input
@@ -56,7 +68,7 @@ const LoginPage = () => {
         </SC.Inputs>
         <SC.Buttons>
           <Button text='Reset' color='gray' onClick={handleResetFields} />
-          <Button text='Submit' color='green' />
+          <Button text='Submit' color='green' onClick={handleLoginSubmit} />
         </SC.Buttons>
       </SC.Form>
       <SC.Link>

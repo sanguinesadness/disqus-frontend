@@ -1,3 +1,5 @@
+import { ANIM_FUNCTION } from "constants/animation";
+import { KEYFRAME_NAMES, EXPAND_KEYFRAMES } from "constants/css.keyframes";
 import Colors from "constants/colors";
 import { CARD_SHADOW } from "constants/mixins";
 import styled from "styled-components";
@@ -19,15 +21,18 @@ export const LogoWrapper = styled.div`
 `;
 
 export const Label = styled.div`
-  padding-top: 7vh;
+  overflow: hidden;
+  margin-top: 7vh;
   font-size: 1.1em;
+  animation: ${KEYFRAME_NAMES.SCALE_OUT} ${ANIM_FUNCTION.SMOOTH_BOUNCE} 300ms;
 `;
 
 export const Form = styled.div`
-  ${CARD_SHADOW()}
   margin: 20px 0;
   width: 800px;
   padding: 40px 50px;
+  ${CARD_SHADOW()}
+  ${EXPAND_KEYFRAMES("register-form-expand", 600, 800, 300)}
 `;
 
 export const Inputs = styled.div`

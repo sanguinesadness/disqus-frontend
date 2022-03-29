@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Colors from "constants/colors";
 
 export const Label = styled.div`
   padding: 0 15px;
@@ -8,7 +9,7 @@ export const Label = styled.div`
 export const InputWrapper = styled.div``;
 
 interface InputProps {
-  concealed?: boolean;
+  error?: boolean;
 }
 
 export const Input = styled.input<InputProps>`
@@ -17,6 +18,12 @@ export const Input = styled.input<InputProps>`
   padding: 8px 15px;
   width: 100%;
   font-weight: 300;
+  ${(props) =>
+    props.error &&
+    `
+  box-shadow: 0 0 5px #FF0000;
+  border-color: ${Colors.RED};
+  `}
 `;
 
 export const Wrapper = styled.div`

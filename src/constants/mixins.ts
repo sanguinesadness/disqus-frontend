@@ -1,4 +1,4 @@
-import { AnimationFunctions } from "./anim.functions";
+import { ANIM_FUNCTION, ANIM_NAMES } from "./animation";
 import Colors from "./colors";
 
 export const FLEX_CENTERED = (direction?: string) => `
@@ -62,40 +62,32 @@ export const CARD_SHADOW = () => `
   border-radius: 15px;
 `;
 
-export const SCALE_ANIMATION = (
-  duration: number = 200,
-  from: "top" | "center" | "bottom"
-) => `
-  transition: ${duration}ms ${AnimationFunctions.SMOOTH_BOUNCE} all;
-  transform-origin: ${from};
+export const SCALE_ANIMATION = (duration: number = 200) => `
+  transition: ${duration}ms ${ANIM_FUNCTION.SMOOTH_BOUNCE} all;
 
-  &.scale-in-enter-active,
-  &.scale-in-exit {
+  &.${ANIM_NAMES.SCALE}-enter-active,
+  &.${ANIM_NAMES.SCALE}-exit {
     opacity: 1;
-    transform: ${
-      from === "top" || from === "bottom" ? "scaleY(100%)" : "scale(100%)"
-    };
+    transform: scale(100%) translateY(0);
   }
 
-  &.scale-in-enter,
-  &.scale-in-exit-active {
+  &.${ANIM_NAMES.SCALE}-enter,
+  &.${ANIM_NAMES.SCALE}-exit-active {
     opacity: 0;
-    transform: ${
-      from === "top" || from === "bottom" ? "scaleY(0)" : "scale(0)"
-    };
+    transform: scale(0) translateY(100%);
   }
 `;
 
 export const FADE_ANIMATION = (duration: number = 200) => `
-  transition: ${duration}ms ${AnimationFunctions.SMOOTH_BOUNCE} all;
+  transition: ${duration}ms ${ANIM_FUNCTION.SMOOTH_BOUNCE} all;
   
-  &.fade-enter-active,
-  &.fade-exit {
+  &.${ANIM_NAMES.FADE}-enter-active,
+  &.${ANIM_NAMES.FADE}-exit {
     opacity: 1;
   }
 
-  &.fade-enter,
-  &.fade-exit-active {
+  &.${ANIM_NAMES.FADE}-enter,
+  &.${ANIM_NAMES.FADE}-exit-active {
     opacity: 0;
   }
 `;

@@ -5,6 +5,8 @@ import LoginPage from "components/screens/Login";
 import RegisterPage from "components/screens/Register";
 import { WRAPPER_ID } from "constants/config";
 import { APP_ROUTES } from "constants/routes";
+import LoadingModal from 'components/UI/Modal/LoadingModal';
+import Toasts from 'components/UI/Toasts';
 
 function App() {
   const location = useLocation();
@@ -23,6 +25,8 @@ function App() {
         <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
       </Routes>
+      <LoadingModal/>
+      <Toasts/>
     </SC.Wrapper>
   );
 }

@@ -10,6 +10,7 @@ interface InputProps {
   onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   type?: HTMLInputTypeAttribute;
   name?: string;
+  error?: boolean;
 }
 
 const Input: FC<InputProps> = ({
@@ -20,6 +21,7 @@ const Input: FC<InputProps> = ({
   onKeyPress,
   type,
   name,
+  error,
 }) => {
   return (
     <SC.Wrapper>
@@ -32,6 +34,7 @@ const Input: FC<InputProps> = ({
           value={value}
           onChange={onValueChange}
           onKeyPress={onKeyPress}
+          error={error}
         />
       </SC.InputWrapper>
     </SC.Wrapper>

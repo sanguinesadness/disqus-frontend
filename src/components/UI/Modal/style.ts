@@ -5,11 +5,11 @@ import {
   FADE_ANIMATION,
   FLEX_CENTERED,
   FLEX_SPACE_BETWEEN,
-} from "../../../constants/mixins";
+} from "constants/mixins";
 
 export const ModalWrapper = styled.div`
   position: fixed;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   height: 100vh;
@@ -17,7 +17,7 @@ export const ModalWrapper = styled.div`
   top: 0;
   left: 0;
   ${FLEX_CENTERED()}
-  ${FADE_ANIMATION(100)}
+  ${FADE_ANIMATION(300)}
 `;
 
 export const Modal = styled.div`

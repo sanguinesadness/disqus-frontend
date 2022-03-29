@@ -3,8 +3,11 @@ import * as SC from "./style";
 import Input from "components/UI/Input";
 import Button from "components/UI/Button";
 import { Link } from "react-router-dom";
-import { APP_ROUTES } from 'constants/routes';
+import { APP_ROUTES } from "constants/routes";
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
+import requestApi from "api/index";
+import { loading } from "services/loading";
+import { fakePromise } from 'services/fake.promise';
 
 const RegisterPage = () => {
   const [name, setName] = useState<string>("");
@@ -37,6 +40,14 @@ const RegisterPage = () => {
     setUrl("");
     setEmail("");
     setPassword("");
+  };
+
+  const handleRegisterSubmit = async () => {
+    loading(async () => {
+      await fakePromise(1000);
+      const newUser = await requestApi.register({ name, url, email, password });
+      console.log(newUser);
+    });
   };
 
   return (
@@ -82,7 +93,7 @@ const RegisterPage = () => {
         </SC.Inputs>
         <SC.Buttons>
           <Button text='Reset' color='gray' onClick={handleResetFields} />
-          <Button text='Submit' color='green' />
+          <Button text='Submit' color='green' onClick={handleRegisterSubmit} />
         </SC.Buttons>
       </SC.Form>
       <SC.Link>

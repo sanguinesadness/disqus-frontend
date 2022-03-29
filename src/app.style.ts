@@ -1,3 +1,12 @@
+import {
+  ROTATE,
+  SCALE_IN,
+  SCALE_IN_X,
+  SCALE_IN_Y,
+  SCALE_OUT,
+  SCALE_OUT_X,
+  SCALE_OUT_Y,
+} from "constants/css.keyframes";
 import Colors from "constants/colors";
 import styled from "styled-components";
 
@@ -8,6 +17,14 @@ export const Wrapper = styled.div`
   font-size: 19px;
   font-weight: 300;
 
+  ${SCALE_IN}
+  ${SCALE_OUT}
+  ${SCALE_IN_X}
+  ${SCALE_IN_Y}
+  ${SCALE_OUT_X}
+  ${SCALE_OUT_Y}
+  ${ROTATE}
+
   button,
   input,
   textarea {
@@ -15,46 +32,6 @@ export const Wrapper = styled.div`
     border: none;
     font-family: inherit;
     font-size: inherit;
-  }
-
-  @keyframes scale-in-x {
-    0% {
-      transform: scaleX(0);
-    }
-  
-    100% {
-      transform: scaleX(1);
-    }
-  }
-  
-  @keyframes scale-out-x {
-    0% {
-      transform: scaleX(1);
-    }
-  
-    100% {
-      transform: scaleX(0);
-    }
-  }
-  
-  @keyframes scale-in-y {
-    0% {
-      transform: scaleY(0);
-    }
-  
-    100% {
-      transform: scaleY(1);
-    }
-  }
-  
-  @keyframes scale-out-y {
-    0% {
-      transform: scaleY(1);
-    }
-  
-    100% {
-      transform: scaleY(0);
-    }
   }
 
   a {
