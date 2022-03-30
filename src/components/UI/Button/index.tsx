@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React, { FC, useEffect, useState } from "react";
 import { TSvgIcon } from "types/svg.icon";
 import * as SC from "./style";
@@ -12,43 +13,38 @@ interface ButtonProps {
   light?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({
-  text,
-  icon,
-  color,
-  onClick,
-  fullWidth,
-  light,
-}) => {
-  const Icon = icon;
-  const [type, setType] = useState<ButtonTypes>(ButtonTypes.TEXT_AND_ICON);
+const Button: FC<ButtonProps> = observer(
+  ({ text, icon, color, onClick, fullWidth, light }) => {
+    const Icon = icon;
+    const [type, setType] = useState<ButtonTypes>(ButtonTypes.TEXT_AND_ICON);
 
-  useEffect(() => {
-    if (text && icon) setType(ButtonTypes.TEXT_AND_ICON);
-    if (text && !icon) setType(ButtonTypes.TEXT_ONLY);
-    if (!text && icon) setType(ButtonTypes.ICON_ONLY);
-    if (!text && !icon) setType(ButtonTypes.EMPTY);
-  }, []);
+    useEffect(() => {
+      if (text && icon) setType(ButtonTypes.TEXT_AND_ICON);
+      if (text && !icon) setType(ButtonTypes.TEXT_ONLY);
+      if (!text && icon) setType(ButtonTypes.ICON_ONLY);
+      if (!text && !icon) setType(ButtonTypes.EMPTY);
+    }, []);
 
-  if (type === ButtonTypes.EMPTY) {
-    return <></>;
+    if (type === ButtonTypes.EMPTY) {
+      return <></>;
+    }
+
+    return (
+      <SC.Button
+        color={color}
+        onClick={onClick}
+        fullWidth={fullWidth}
+        light={light}
+      >
+        {Icon && (
+          <SC.IconWrapper>
+            <Icon />
+          </SC.IconWrapper>
+        )}
+        {text && <SC.Text>{text}</SC.Text>}
+      </SC.Button>
+    );
   }
-
-  return (
-    <SC.Button
-      color={color}
-      onClick={onClick}
-      fullWidth={fullWidth}
-      light={light}
-    >
-      {Icon && (
-        <SC.IconWrapper>
-          <Icon />
-        </SC.IconWrapper>
-      )}
-      {text && <SC.Text>{text}</SC.Text>}
-    </SC.Button>
-  );
-};
+);
 
 export default Button;

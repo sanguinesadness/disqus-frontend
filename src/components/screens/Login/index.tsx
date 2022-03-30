@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as SC from "./style";
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import Input from "components/UI/Input";
 import Button from "components/UI/Button";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "constants/routes";
-import requestApi from "api";
-import { modalsStore } from "stores/modalsStore";
-import { loading } from "services/loading";
-import { fakePromise } from "services/fake.promise";
 import { toastsStore } from "stores/toastsStore";
 import { authStore } from "stores/authStore";
+import { observer } from 'mobx-react-lite';
 
-const LoginPage = () => {
+const LoginPage = observer(() => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -33,10 +33,25 @@ const LoginPage = () => {
   const handleResetFields = () => {
     setEmail("");
     setPassword("");
+    setEmailError(false);
+    setPasswordError(false);
   };
 
-  const handleLoginSubmit = () => authStore.login({ email, password });
-  
+  const handleLoginSubmit = () => {
+    // TODO: Server-side validation
+    setEmailError(!email.trim().length);
+    setPasswordError(!password.trim().length);
+    if (!email.trim().length || !password.trim().length) {
+      return;
+    }
+
+    authStore.login({ email, password });
+  };
+
+  useEffect(() => {
+    if (emailError || passwordError) toastsStore.error("Empty fields");
+  }, [emailError, passwordError]);
+
   return (
     <SC.LoginPage>
       <SC.LogoWrapper>
@@ -52,6 +67,7 @@ const LoginPage = () => {
             type='email'
             value={email}
             onValueChange={handleValueChange}
+            error={emailError}
           />
           <Input
             label='Password'
@@ -60,6 +76,7 @@ const LoginPage = () => {
             name='password'
             value={password}
             onValueChange={handleValueChange}
+            error={passwordError}
           />
         </SC.Inputs>
         <SC.Buttons>
@@ -73,6 +90,6 @@ const LoginPage = () => {
       </SC.Link>
     </SC.LoginPage>
   );
-};
+});
 
 export default LoginPage;

@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React, { FC } from "react";
 import { HTMLInputTypeAttribute } from "react";
 import * as SC from "./style";
@@ -13,32 +14,34 @@ interface InputProps {
   error?: boolean;
 }
 
-const Input: FC<InputProps> = ({
-  label,
-  value,
-  placeholder,
-  onValueChange,
-  onKeyPress,
-  type,
-  name,
-  error,
-}) => {
-  return (
-    <SC.Wrapper>
-      {label && <SC.Label>{label}</SC.Label>}
-      <SC.InputWrapper>
-        <SC.Input
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={onValueChange}
-          onKeyPress={onKeyPress}
-          error={error}
-        />
-      </SC.InputWrapper>
-    </SC.Wrapper>
-  );
-};
+const Input: FC<InputProps> = observer(
+  ({
+    label,
+    value,
+    placeholder,
+    onValueChange,
+    onKeyPress,
+    type,
+    name,
+    error,
+  }) => {
+    return (
+      <SC.Wrapper>
+        {label && <SC.Label>{label}</SC.Label>}
+        <SC.InputWrapper>
+          <SC.Input
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            onChange={onValueChange}
+            onKeyPress={onKeyPress}
+            error={error}
+          />
+        </SC.InputWrapper>
+      </SC.Wrapper>
+    );
+  }
+);
 
 export default Input;

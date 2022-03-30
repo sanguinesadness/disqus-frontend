@@ -10,10 +10,13 @@ import { modalsStore } from "stores/modalsStore";
 const AuthSuccessModal = observer(() => {
   if (!authStore.website) return <></>;
 
-  const handleModalClose = () => modalsStore.close();
+  const handleLogoutClick = () => {
+    modalsStore.close();
+    authStore.logout();
+  };
 
   return (
-    <Modal name='auth-success'>
+    <Modal name='auth-success' closeOnWrapperClick={false}>
       <SC.Wrapper>
         <SC.Header>
           <SC.Title>Hello, {authStore.website.name}</SC.Title>
@@ -28,11 +31,11 @@ const AuthSuccessModal = observer(() => {
         <SC.Footer>
           <SC.Strong>Do not share it with anyone</SC.Strong>
           <Button
-            text='Ok'
+            text='Log out'
             color='green'
             fullWidth
             light
-            onClick={handleModalClose}
+            onClick={handleLogoutClick}
           />
         </SC.Footer>
       </SC.Wrapper>

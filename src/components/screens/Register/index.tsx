@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as SC from "./style";
 import Input from "components/UI/Input";
 import Button from "components/UI/Button";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "constants/routes";
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
-import requestApi from "api/index";
-import { loading } from "services/loading";
-import { fakePromise } from "services/fake.promise";
 import { toastsStore } from "stores/toastsStore";
 import { authStore } from "stores/authStore";
+import { observer } from "mobx-react-lite";
 
-const RegisterPage = () => {
+const RegisterPage = observer(() => {
   const [name, setName] = useState<string>("");
   const [url, setUrl] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [nameError, setNameError] = useState<boolean>(false);
+  const [urlError, setUrlError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -42,10 +45,34 @@ const RegisterPage = () => {
     setUrl("");
     setEmail("");
     setPassword("");
+    setEmailError(false);
+    setPasswordError(false);
+    setUrlError(false);
+    setNameError(false);
   };
 
-  const handleRegisterSubmit = () =>
+  const handleRegisterSubmit = () => {
+    // TODO: Server-side validation
+    setNameError(!name.trim().length);
+    setUrlError(!url.trim().length);
+    setEmailError(!email.trim().length);
+    setPasswordError(!password.trim().length);
+    if (
+      !name.trim().length ||
+      !url.trim().length ||
+      !email.trim().length ||
+      !password.trim().length
+    ) {
+      return;
+    }
+
     authStore.register({ email, password, url, name });
+  };
+
+  useEffect(() => {
+    if (nameError || urlError || emailError || passwordError)
+      toastsStore.error("Empty fields");
+  }, [nameError, urlError, emailError, passwordError]);
 
   return (
     <SC.RegisterPage>
@@ -62,6 +89,7 @@ const RegisterPage = () => {
             type='text'
             value={name}
             onValueChange={handleValueChange}
+            error={nameError}
           />
           <Input
             label='Url'
@@ -70,6 +98,7 @@ const RegisterPage = () => {
             name='url'
             value={url}
             onValueChange={handleValueChange}
+            error={urlError}
           />
           <Input
             label='Email'
@@ -78,6 +107,7 @@ const RegisterPage = () => {
             name='email'
             value={email}
             onValueChange={handleValueChange}
+            error={emailError}
           />
           <Input
             label='Password'
@@ -86,6 +116,7 @@ const RegisterPage = () => {
             name='password'
             value={password}
             onValueChange={handleValueChange}
+            error={passwordError}
           />
         </SC.Inputs>
         <SC.Buttons>
@@ -99,6 +130,6 @@ const RegisterPage = () => {
       </SC.Link>
     </SC.RegisterPage>
   );
-};
+});
 
 export default RegisterPage;

@@ -5,7 +5,7 @@ import { RegisterDto } from "api/dto/register.dto";
 import { loading } from "services/loading";
 import { toastsStore } from "./toastsStore";
 import { fakePromise } from "services/fake.promise";
-import { Website } from 'api/types/website';
+import { Website } from "api/types/website";
 
 class AuthStore {
   website: Website | null = null;
@@ -47,11 +47,19 @@ class AuthStore {
   async fetchCurrentWebsite() {
     loading(async () => {
       await fakePromise(1000);
-      
+
       const website = await requestApi.getCurrentWebsite();
       if (!website) return;
 
       this.setWebsite(website);
+    });
+  }
+
+  logout() {
+    loading(async () => {
+      await fakePromise(1000);
+      requestApi.logout();
+      toastsStore.success("Logged out");
     });
   }
 }

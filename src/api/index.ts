@@ -47,7 +47,7 @@ class RequestApi {
       const resp = await this._axios.get<Website>(GET_CURRENT_ROUTE);
       return resp.data;
     } catch (err: any) {
-      toastsStore.error(err.response.data.message);
+      toastsStore.info(err.response.data.message);
       return null;
     }
   }
@@ -82,6 +82,10 @@ class RequestApi {
       toastsStore.error(err.response.data.message);
       return null;
     }
+  }
+
+  public logout() {
+    this._cookies.remove(ACCESS_TOKEN_COOKIE);
   }
 }
 

@@ -17,7 +17,7 @@ const Toasts = observer(() => {
       <CSSTransition
         in={toastsStore.opened}
         unmountOnExit
-        timeout={{ exit: 3000 }}
+        timeout={{ exit: 300 }}
         classNames={ANIM_NAMES.SCALE}
       >
         <SC.Toast type={toastsStore.type}>
