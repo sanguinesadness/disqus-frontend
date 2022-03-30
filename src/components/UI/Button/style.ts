@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Colors from "constants/colors";
+import { COLORS_HEX, COLORS_RGB } from "constants/colors";
 import { FLEX_CENTERED } from "constants/mixins";
-import { ButtonColor } from './types';
+import { ButtonColor } from "./types";
 
 export const IconWrapper = styled.div`
   margin-right: 15px;
@@ -21,6 +21,7 @@ export const Text = styled.div`
 interface ButtonProps {
   color?: ButtonColor;
   fullWidth?: boolean;
+  light?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -32,9 +33,9 @@ export const Button = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 10px 40px;
   border-radius: 10px;
-  fill: ${Colors.WHITE};
-  color: ${Colors.WHITE};
-  background: ${Colors.GRAY};
+  fill: ${COLORS_HEX.WHITE};
+  color: ${COLORS_HEX.WHITE};
+  background: ${COLORS_HEX.GRAY};
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15);
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15);
   transition: 200ms ease all;
@@ -47,26 +48,38 @@ export const Button = styled.button<ButtonProps>`
   ${(props) =>
     props.color === "green" &&
     `
-    background: ${Colors.GREEN};
-    color: ${Colors.WHITE};
-    fill: ${Colors.WHITE};
+    background: ${COLORS_HEX.GREEN};
+    color: ${COLORS_HEX.WHITE};
+    fill: ${COLORS_HEX.WHITE};
   `}
+
+  ${(props) =>
+    props.color === "green" &&
+    props.light &&
+    `
+    background: rgba(${COLORS_RGB.GREEN}, 0.07);
+    border: none;
+    box-shadow: none;
+    color: ${COLORS_HEX.GREEN};
+    fill: ${COLORS_HEX.GREEN};
+  `}
+
   ${(props) =>
     props.color === "red" &&
     `
-    background: ${Colors.RED};
-    color: ${Colors.WHITE};
-    fill: ${Colors.WHITE};`}
+    background: ${COLORS_HEX.RED};
+    color: ${COLORS_HEX.WHITE};
+    fill: ${COLORS_HEX.WHITE};`}
     ${(props) =>
     props.color === "transparent" &&
     `
-      background: ${Colors.TRANSPARENT};
-      color: ${Colors.BLACK};
-      fill: ${Colors.BLACK};
+      background: ${COLORS_HEX.TRANSPARENT};
+      color: ${COLORS_HEX.BLACK};
+      fill: ${COLORS_HEX.BLACK};
       box-shadow: none;
       &:hover {
         box-shadow: none;
-        background: ${Colors.LIGHT_GRAY};
+        background: ${COLORS_HEX.LIGHT_GRAY};
       }
       `}
 `;

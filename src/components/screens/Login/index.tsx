@@ -10,6 +10,7 @@ import { modalsStore } from "stores/modalsStore";
 import { loading } from "services/loading";
 import { fakePromise } from "services/fake.promise";
 import { toastsStore } from "stores/toastsStore";
+import { authStore } from "stores/authStore";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,13 +35,8 @@ const LoginPage = () => {
     setPassword("");
   };
 
-  const handleLoginSubmit = async () => {
-    loading(async () => {
-      await fakePromise(1000);
-      const user = await requestApi.login({ email, password });
-    });
-  };
-
+  const handleLoginSubmit = () => authStore.login({ email, password });
+  
   return (
     <SC.LoginPage>
       <SC.LogoWrapper>

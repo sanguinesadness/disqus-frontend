@@ -4,9 +4,11 @@ import { makeAutoObservable } from "mobx";
 export type ToastType = "success" | "error" | "info" | null;
 
 class ToastsStore {
-  message = "";
-  type: ToastType = null;
-  opened: boolean = false;
+  public message = "";
+  public type: ToastType = null;
+  public opened: boolean = false;
+
+  private _timeoutId: NodeJS.Timeout | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -31,7 +33,7 @@ class ToastsStore {
     this.setType(type);
     this.setOpened(true);
 
-    setTimeout(() => {
+    this._timeoutId = setTimeout(() => {
       if (this.opened) this.close();
     }, TOAST_DURATION);
   }
@@ -50,6 +52,7 @@ class ToastsStore {
 
   close() {
     this.setOpened(false);
+    if (this._timeoutId) clearTimeout(this._timeoutId);
   }
 }
 

@@ -7,7 +7,7 @@ import {
   SCALE_OUT_X,
   SCALE_OUT_Y,
 } from "constants/css.keyframes";
-import Colors from "constants/colors";
+import { COLORS_HEX } from "constants/colors";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
   height: 100vh;
   font-size: 19px;
   font-weight: 300;
+  color: ${COLORS_HEX.TEAL};
 
   ${SCALE_IN}
   ${SCALE_OUT}
@@ -35,7 +36,7 @@ export const Wrapper = styled.div`
   }
 
   a {
-    color: ${Colors.GRAY};
+    color: ${COLORS_HEX.GRAY};
     text-decoration: none;
     position: relative;
     outline: none;
@@ -71,7 +72,7 @@ export const Wrapper = styled.div`
     }
   
     &:visited {
-      color: ${Colors.GRAY};
+      color: ${COLORS_HEX.GRAY};
     }
   
     &:focus {

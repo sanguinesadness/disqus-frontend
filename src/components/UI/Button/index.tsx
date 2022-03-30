@@ -9,9 +9,17 @@ interface ButtonProps {
   icon?: TSvgIcon;
   color?: ButtonColor;
   fullWidth?: boolean;
+  light?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ text, icon, color, onClick, fullWidth }) => {
+const Button: FC<ButtonProps> = ({
+  text,
+  icon,
+  color,
+  onClick,
+  fullWidth,
+  light,
+}) => {
   const Icon = icon;
   const [type, setType] = useState<ButtonTypes>(ButtonTypes.TEXT_AND_ICON);
 
@@ -27,7 +35,12 @@ const Button: FC<ButtonProps> = ({ text, icon, color, onClick, fullWidth }) => {
   }
 
   return (
-    <SC.Button color={color} onClick={onClick} fullWidth={fullWidth}>
+    <SC.Button
+      color={color}
+      onClick={onClick}
+      fullWidth={fullWidth}
+      light={light}
+    >
       {Icon && (
         <SC.IconWrapper>
           <Icon />

@@ -1,6 +1,6 @@
 import { ANIM_FUNCTION } from "constants/animation";
 import { KEYFRAME_NAMES, EXPAND_KEYFRAMES } from "constants/css.keyframes";
-import Colors from "constants/colors";
+import { COLORS_HEX } from "constants/colors";
 import { CARD_SHADOW } from "constants/mixins";
 import styled from "styled-components";
 
@@ -50,7 +50,7 @@ export const Buttons = styled.div`
 
 export const Link = styled.div`
   display: flex;
-  color: ${Colors.GRAY};
+  color: ${COLORS_HEX.GRAY};
 
   span {
     margin-right: 5px;

@@ -7,7 +7,9 @@ import { APP_ROUTES } from "constants/routes";
 import { ReactComponent as LogoIcon } from "assets/icons/logo.svg";
 import requestApi from "api/index";
 import { loading } from "services/loading";
-import { fakePromise } from 'services/fake.promise';
+import { fakePromise } from "services/fake.promise";
+import { toastsStore } from "stores/toastsStore";
+import { authStore } from "stores/authStore";
 
 const RegisterPage = () => {
   const [name, setName] = useState<string>("");
@@ -42,13 +44,8 @@ const RegisterPage = () => {
     setPassword("");
   };
 
-  const handleRegisterSubmit = async () => {
-    loading(async () => {
-      await fakePromise(1000);
-      const newUser = await requestApi.register({ name, url, email, password });
-      console.log(newUser);
-    });
-  };
+  const handleRegisterSubmit = () =>
+    authStore.register({ email, password, url, name });
 
   return (
     <SC.RegisterPage>

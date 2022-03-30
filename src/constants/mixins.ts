@@ -1,5 +1,5 @@
 import { ANIM_FUNCTION, ANIM_NAMES } from "./animation";
-import Colors from "./colors";
+import { COLORS_HEX } from "./colors";
 
 export const FLEX_CENTERED = (direction?: string) => `
     display: flex;
@@ -30,7 +30,7 @@ export const TEXT_ELLIPSIS = (showFull?: boolean) => `
       showFull
         ? `&:hover {
             transition: 400ms ease all;
-            background: ${Colors.WHITE};
+            background: ${COLORS_HEX.WHITE};
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             white-space: wrap;

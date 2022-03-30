@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Colors from "constants/colors";
+import { COLORS_HEX } from "constants/colors";
 
 export const Label = styled.div`
   padding: 0 15px;
@@ -22,7 +22,7 @@ export const Input = styled.input<InputProps>`
     props.error &&
     `
   box-shadow: 0 0 5px #FF0000;
-  border-color: ${Colors.RED};
+  border-color: ${COLORS_HEX.RED};
   `}
 `;
 

@@ -1,6 +1,6 @@
-import Colors from 'constants/colors';
-import { FLEX_CENTERED } from 'constants/mixins';
-import styled from 'styled-components';
+import { COLORS_HEX } from "constants/colors";
+import { FLEX_CENTERED } from "constants/mixins";
+import styled from "styled-components";
 
 interface IconProps {
   size: number;
@@ -8,7 +8,7 @@ interface IconProps {
 
 export const Icon = styled.div<IconProps>`
   ${FLEX_CENTERED()}
-  height: ${props => props.size}px;
+  height: ${(props) => props.size}px;
   width: 100%;
 `;
 
@@ -18,5 +18,5 @@ export const Label = styled.div`
   margin-top: 25px;
   width: 100%;
   text-align: center;
-  color: ${Colors.TEAL};
+  color: ${COLORS_HEX.TEAL};
 `;

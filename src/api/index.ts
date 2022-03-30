@@ -4,6 +4,8 @@ import Cookies from "universal-cookie";
 import {
   ACCESS_TOKEN_COOKIE,
   API_URL,
+  GET_CURRENT_ROUTE,
+  GET_TOKEN_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   WEBSITE_ROUTE,
@@ -38,6 +40,26 @@ class RequestApi {
 
       return config;
     });
+  }
+
+  public async getCurrentWebsite(): Promise<Website | null> {
+    try {
+      const resp = await this._axios.get<Website>(GET_CURRENT_ROUTE);
+      return resp.data;
+    } catch (err: any) {
+      toastsStore.error(err.response.data.message);
+      return null;
+    }
+  }
+
+  public async getToken(): Promise<string | null> {
+    try {
+      const resp = await this._axios.get(GET_TOKEN_ROUTE);
+      return resp.data;
+    } catch (err: any) {
+      toastsStore.error(err.response.data.message);
+      return null;
+    }
   }
 
   public async login(dto: LoginDto): Promise<Website | null> {
